@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lancelot/models/signup_provider_model.dart';
 import 'package:lancelot/routes/routes_name.dart';
@@ -100,6 +101,7 @@ class _SignUpLoginScreenState extends State<SignUpLoginScreen> {
                               height: 10,
                             ),
                             TextField(
+                              obscureText: true,
                               decoration: InputDecoration(hintText: 'Password'),
                               onChanged: (val) {
                                 signprovider.setPassword(val);
@@ -146,6 +148,7 @@ class _SignUpLoginScreenState extends State<SignUpLoginScreen> {
                                       color: Colors.white,
                                     ),
                                     onPressed: () {
+                                      signprovider.signUpUsers(context);
                                       Navigator.pushNamed(
                                           context, signupInfoRoute);
                                     },

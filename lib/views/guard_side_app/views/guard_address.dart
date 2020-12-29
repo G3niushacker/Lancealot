@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lancelot/routes/routes_name.dart';
+import 'package:lancelot/services/guard_service.dart';
+import 'package:lancelot/services/signup_user.dart';
+import 'package:provider/provider.dart';
 
 class GuardAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<GuardService>(context);
+    final signPro = Provider.of<SignUpUsers>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -40,12 +45,18 @@ class GuardAddress extends StatelessWidget {
                       TextField(
                         decoration:
                             InputDecoration(hintText: 'House no Street'),
+                        onChanged: (val) {
+                          provider.sethouse(val);
+                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       TextField(
                         decoration: InputDecoration(hintText: 'state'),
+                        onChanged: (val) {
+                          provider.setstate(val);
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -55,6 +66,9 @@ class GuardAddress extends StatelessWidget {
                           Expanded(
                             child: TextField(
                               decoration: InputDecoration(hintText: 'City'),
+                              onChanged: (val) {
+                                provider.setCity(val);
+                              },
                             ),
                           ),
                           SizedBox(
@@ -64,6 +78,9 @@ class GuardAddress extends StatelessWidget {
                             child: TextField(
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(hintText: 'ZipCode'),
+                              onChanged: (val) {
+                                provider.setZip(val);
+                              },
                             ),
                           ),
                         ],
@@ -76,7 +93,13 @@ class GuardAddress extends StatelessWidget {
                         color: Colors.black,
                         height: 50,
                         onPressed: () {
-                          Navigator.pushNamed(context, guardHome);
+                          provider.uploadGuardInfo();
+                          var user = signPro.userId;
+                          if (user != null) {
+                            Navigator.pushNamed(context, guardHome);
+                          } else {
+                            print("Here's an error");
+                          }
                         },
                         child: Text(
                           "Next",

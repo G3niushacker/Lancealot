@@ -153,9 +153,7 @@ class _SecurityInfoBusinessState extends State<SecurityInfoBusiness> {
                         color: Colors.black,
                         height: 50,
                         onPressed: () {
-                          signProvider.signUpUsers();
                           provider.addCustomerData();
-                          signProvider.getUserId();
                           var user = signProvider.userId;
                           if (user != null) {
                             Navigator.pushNamed(context, homeRoute);

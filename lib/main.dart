@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lancelot/models/signup_provider_model.dart';
 import 'package:lancelot/routes/custom_routes.dart';
 import 'package:lancelot/routes/routes_name.dart';
+import 'package:lancelot/services/guard_service.dart';
 import 'package:lancelot/services/signup_user.dart';
 import 'package:lancelot/views/guard_side_app/models/guard_signup_model.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<CustomerService>(
           create: (context) => CustomerService(),
+        ),
+        ChangeNotifierProvider<GuardService>(
+          create: (context) => GuardService(),
         )
       ],
       child: MaterialApp(

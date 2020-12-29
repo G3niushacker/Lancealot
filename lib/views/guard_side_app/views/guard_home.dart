@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lancelot/services/guard_service.dart';
 import 'package:lancelot/views/condtition_screen.dart';
+import 'package:provider/provider.dart';
 
 class GuardHome extends StatefulWidget {
   @override
@@ -18,9 +20,15 @@ class _GuardHomeState extends State<GuardHome> {
 
   final Set<Marker> marker = {};
 
+  void getCalledUserInfo() {
+    final proi = Provider.of<GuardService>(context, listen: false);
+    proi.getUserInfo();
+  }
+
   @override
   void initState() {
     super.initState();
+    getCalledUserInfo();
     marker.add(
       Marker(
         markerId: MarkerId(
@@ -32,6 +40,7 @@ class _GuardHomeState extends State<GuardHome> {
 
   @override
   Widget build(BuildContext context) {
+    final provi = Provider.of<GuardService>(context);
     return Scaffold(
       drawer: Drawer(
         child: Column(
@@ -45,23 +54,26 @@ class _GuardHomeState extends State<GuardHome> {
                 border: Border.all(color: Colors.black, width: 5),
               ),
               child: ClipOval(
-                child: Image.asset(
-                  "images/profile.png",
-                  fit: BoxFit.fill,
-                  height: 120,
-                  width: 120,
-                ),
-              ),
+                  child: provi.displayimage == null
+                      ? Image.asset(
+                          "images/profile.png",
+                          fit: BoxFit.fill,
+                          height: 120,
+                          width: 120,
+                        )
+                      : Image.network(provi.displayimage)),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              "John Doe",
+              provi.displayfName == null
+                  ? "Loading"
+                  : provi.displayfName + provi.displaylName,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
             ),
             Text(
-              "+1 568 236 5989",
+              provi.displayPhone == null ? "Loading" : provi.displayPhone,
               style: TextStyle(
                 fontSize: 18,
               ),

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lancelot/routes/routes_name.dart';
+import 'package:lancelot/services/guard_service.dart';
+import 'package:lancelot/services/signup_user.dart';
 import 'package:lancelot/views/guard_side_app/models/guard_signup_model.dart';
 import 'package:provider/provider.dart';
 
 class GuardSideSignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final signPro = Provider.of<SignUpUsers>(context);
+    final guardPro = Provider.of<GuardService>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Consumer<GuardSignUpProvider>(
@@ -45,6 +49,9 @@ class GuardSideSignUp extends StatelessWidget {
                                       child: TextField(
                                         decoration: InputDecoration(
                                             hintText: 'First Name'),
+                                        onChanged: (val) {
+                                          guardPro.setfName(val);
+                                        },
                                       ),
                                     ),
                                     SizedBox(
@@ -54,6 +61,9 @@ class GuardSideSignUp extends StatelessWidget {
                                       child: TextField(
                                         decoration: InputDecoration(
                                             hintText: 'Last Name'),
+                                        onChanged: (val) {
+                                          guardPro.setLName(val);
+                                        },
                                       ),
                                     ),
                                   ],
@@ -64,6 +74,10 @@ class GuardSideSignUp extends StatelessWidget {
                           TextField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(hintText: 'Email'),
+                            onChanged: (val) {
+                              guardPro.setEmail(val);
+                              signPro.setEmail(val);
+                            },
                           ),
                           SizedBox(
                             height: 10,
@@ -74,12 +88,19 @@ class GuardSideSignUp extends StatelessWidget {
                                   keyboardType: TextInputType.phone,
                                   decoration:
                                       InputDecoration(hintText: 'Phone'),
+                                  onChanged: (val) {
+                                    guardPro.setPhone(val);
+                                  },
                                 ),
                           SizedBox(
                             height: 10,
                           ),
                           TextField(
+                            obscureText: true,
                             decoration: InputDecoration(hintText: 'Password'),
+                            onChanged: (val) {
+                              signPro.setPassword(val);
+                            },
                           ),
                           SizedBox(
                             height: 30,
@@ -122,6 +143,7 @@ class GuardSideSignUp extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                   onPressed: () {
+                                    signPro.signUpUsers(context);
                                     Navigator.pushNamed(context, guardSecurity);
                                   },
                                 ),

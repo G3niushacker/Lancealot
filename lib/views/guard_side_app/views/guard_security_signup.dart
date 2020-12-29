@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lancelot/routes/routes_name.dart';
-import 'package:lancelot/views/guard_side_app/models/guard_signup_model.dart';
+import 'package:lancelot/services/guard_service.dart';
 import 'package:provider/provider.dart';
 
 class GuardSecuritySign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<GuardSignUpProvider>(context);
+    final provider = Provider.of<GuardService>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -68,12 +68,18 @@ class GuardSecuritySign extends StatelessWidget {
                       decoration: InputDecoration(
                         hintText: 'Drivers license number',
                       ),
+                      onChanged: (val) {
+                        provider.setLicenceNo(val);
+                      },
                     ),
                     TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         hintText: 'Drivers license expiration',
                       ),
+                      onChanged: (val) {
+                        provider.setLicenceExp(val);
+                      },
                     ),
                     SizedBox(
                       height: 50,

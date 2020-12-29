@@ -36,6 +36,7 @@ dependencies:
   firebase_auth: ^0.18.4+1
   cloud_firestore: ^0.14.4
   firebase_core: ^0.5.3
+  firebase_storage: ^4.0.0
 
   # image picking
   image_picker: ^0.6.7+15
@@ -51,6 +52,7 @@ dependencies:
   # animations
   flutter_login: ^1.0.14
   splash_screen_view: ^1.0.3
+  animated_text_kit: ^3.1.0
 
 dev_dependencies:
   flutter_test:
